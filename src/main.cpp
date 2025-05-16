@@ -4,48 +4,48 @@
 #include <string>
 #include <set>
 
-// Глобальные переменные для задания головоломки
+// Глобальні змінні для завдання головоломки
 const int BOARD_SIZE = 10;
 
-// Определение всех блоков головоломки
+// Визначення всіх блоків головоломки
 const std::vector<std::vector<std::pair<int, int>>> BLOCKS = {
-    // Блок 0 - верхний левый квадрат 3x3
+    // Блок 0 - верхній лівий квадрат 3x3
     {{0,0}, {1,0}, {2,0}, {0,1}, {1,1}, {2,1}, {0,2}, {1,2}, {2,2}},
     
-    // Блок 1 - верхний правый повернутый квадрат с буквой A
+    // Блок 1 - верхній правий повернутий квадрат з літерою A
     {{6,0}, {7,0}, {8,0}, {9,0}, {6,1}, {7,1}, {8,1}, {9,1}, {7,2}, {8,2}, {9,2}},
     
-    // Блок 2 - средний верхний блок с буквами A
+    // Блок 2 - середній верхній блок з буквами A
     {{3,1}, {4,1}, {5,1}, {3,2}, {4,2}, {5,2}, {3,3}, {4,3}, {5,3}},
     
-    // Блок 3 - квадрат в правой средней части с AA и S
+    // Блок 3 - квадрат в правій середній частині з AA і S
     {{7,3}, {8,3}, {9,3}, {7,4}, {8,4}, {9,4}, {7,5}, {8,5}, {9,5}},
     
-    // Блок 4 - нижний левый повернутый квадрат с A и S
+    // Блок 4 - нижній лівий повернутий квадрат з A і S
     {{0,5}, {1,5}, {2,5}, {0,6}, {1,6}, {2,6}, {0,7}, {1,7}, {2,7}, {0,8}},
     
-    // Блок 5 - нижний правый квадрат 3x3
+    // Блок 5 - нижній правий квадрат 3x3
     {{7,7}, {8,7}, {9,7}, {7,8}, {8,8}, {9,8}, {7,9}, {8,9}, {9,9}},
     
-    // Блок 6 - средний нижний блок с A
+    // Блок 6 - середній нижній блок з A
     {{4,6}, {5,6}, {6,6}, {4,7}, {5,7}, {6,7}, {4,8}, {5,8}, {6,8}},
     
-    // Блок 7 - правый блок с S внизу
+    // Блок 7 - правий блок з S внизу
     {{6,8}, {6,9}, {5,9}, {4,9}, {3,9}, {3,8}}
 };
 
 void setPuzzle(Board &board) {
-    // Инициализация базовой доски
+    // Ініціалізація базової дошки
     board.initialize();
     
-    // Блок 0 - верхний левый квадрат 3x3
+    // Блок 0 - верхній лівий квадрат 3x3
     for (int y = 0; y < 3; y++) {
         for (int x = 0; x < 3; x++) {
             board.setBlockId(x, y, 0);
         }
     }
     
-    // Блок 1 - верхний правый повернутый квадрат с буквой A
+    // Блок 1 - верхній правий повернутий квадрат з літерою A
     board.setBlockId(6, 0, 1);
     board.setBlockId(7, 0, 1);
     board.setBlockId(8, 0, 1);
@@ -58,7 +58,7 @@ void setPuzzle(Board &board) {
     board.setBlockId(8, 2, 1);
     board.setBlockId(9, 2, 1);
     
-    // Блок 2 - средний верхний блок с буквами A
+    // Блок 2 - середній верхній блок з буквами A
     board.setBlockId(3, 1, 2);
     board.setBlockId(4, 1, 2);
     board.setBlockId(5, 1, 2);
@@ -69,7 +69,7 @@ void setPuzzle(Board &board) {
     board.setBlockId(4, 3, 2);
     board.setBlockId(5, 3, 2);
     
-    // Блок 3 - квадрат в правой средней части с AA и S
+    // Блок 3 - квадрат в правій середній частині з AA і S
     board.setBlockId(7, 3, 3);
     board.setBlockId(8, 3, 3);
     board.setBlockId(9, 3, 3);
@@ -80,7 +80,7 @@ void setPuzzle(Board &board) {
     board.setBlockId(8, 5, 3);
     board.setBlockId(9, 5, 3);
     
-    // Блок 4 - нижний левый повернутый квадрат с A и S
+    // Блок 4 - нижній лівий повернутий квадрат з A і S
     board.setBlockId(0, 5, 4);
     board.setBlockId(1, 5, 4);
     board.setBlockId(2, 5, 4);
@@ -92,14 +92,14 @@ void setPuzzle(Board &board) {
     board.setBlockId(2, 7, 4);
     board.setBlockId(0, 8, 4);
     
-    // Блок 5 - нижний правый квадрат 3x3
+    // Блок 5 - нижній правий квадрат 3x3
     for (int y = 7; y < 10; y++) {
         for (int x = 7; x < 10; x++) {
             board.setBlockId(x, y, 5);
         }
     }
     
-    // Блок 6 - средний нижний блок с A
+    // Блок 6 - середній нижній блок з A
     board.setBlockId(4, 6, 6);
     board.setBlockId(5, 6, 6);
     board.setBlockId(6, 6, 6);
@@ -110,7 +110,7 @@ void setPuzzle(Board &board) {
     board.setBlockId(5, 8, 6);
     board.setBlockId(6, 8, 6);
     
-    // Блок 7 - правый блок с S внизу
+    // Блок 7 - правий блок з S внизу
     board.setBlockId(6, 8, 7);
     board.setBlockId(6, 9, 7);
     board.setBlockId(5, 9, 7);
@@ -118,53 +118,59 @@ void setPuzzle(Board &board) {
     board.setBlockId(3, 9, 7);
     board.setBlockId(3, 8, 7);
     
-    // Устанавливаем буквы A и S для соответствующих блоков
-    std::cout << "Установка букв..." << std::endl;
-    board.setCellNumber(3, 1, 'A'); // A в блоке 2
-    std::cout << "После установки A в (3,1), getCellNumber возвращает: " 
+    // Встановлюємо літери A і S для відповідних блоків
+    std::cout << "Встановлення літер..." << std::endl;
+    board.setCellNumber(3, 1, 'A'); // A в блоці 2
+    std::cout << "Після встановлення A в (3,1), getCellNumber повертає: " 
               << (int)board.getCellNumber(3, 1) << std::endl;
-    board.setCellNumber(4, 2, 'A'); // A в блоке 2
-    board.setCellNumber(9, 1, 'A'); // A в блоке 1
-    board.setCellNumber(7, 3, 'A'); // A в блоке 3
-    board.setCellNumber(8, 3, 'A'); // A в блоке 3
-    board.setCellNumber(1, 6, 'A'); // A в блоке 4
-    board.setCellNumber(5, 7, 'A'); // A в блоке 6
-    board.setCellNumber(0, 8, 'A'); // A в блоке 4
+    board.setCellNumber(4, 2, 'A'); // A в блоці 2
+    board.setCellNumber(9, 1, 'A'); // A в блоці 1
+    board.setCellNumber(7, 3, 'A'); // A в блоці 3
+    board.setCellNumber(8, 3, 'A'); // A в блоці 3
+    board.setCellNumber(1, 6, 'A'); // A в блоці 4
+    board.setCellNumber(5, 7, 'A'); // A в блоці 6
+    board.setCellNumber(0, 8, 'A'); // A в блоці 4
 
-    board.setCellNumber(0, 5, 'S'); // S в блоке 4
-    board.setCellNumber(9, 4, 'S'); // S в блоке 3
-    board.setCellNumber(2, 6, 'S'); // S в блоке 4
-    board.setCellNumber(6, 8, 'S'); // S в блоке 7
+    board.setCellNumber(0, 5, 'S'); // S в блоці 4
+    board.setCellNumber(9, 4, 'S'); // S в блоці 3
+    board.setCellNumber(2, 6, 'S'); // S в блоці 4
+    board.setCellNumber(6, 8, 'S'); // S в блоці 7
 }
 
-// Теперь попробуем более простой подход, напрямую закрашивая клетки A
-// и проверяя корректность без опоры на getCellNumber
+// Спробуємо простіший підхід, безпосередньо зафарбовуючи клітинки A
+// та перевіряючи коректність без опори на getCellNumber
 void setUpInitialState(Board &board) {
-    // Закрашиваем клетки с буквами A
+    // Спочатку встановлюємо всі клітинки як незафарбовані
+    for (int y = 0; y < BOARD_SIZE; ++y) {
+        for (int x = 0; x < BOARD_SIZE; ++x) {
+            board.setCell(x, y, false);
+        }
+    }
+
+    // Зафарбовуємо клітинки з літерами A - змінюємо позиції для уникнення стикання
     std::vector<std::pair<int, int>> aPositions = {
         {3, 1}, {4, 2}, {9, 1}, {7, 3}, {8, 3}, {1, 6}, {5, 7}, {0, 8}
     };
     
-    // Добавляем соединения между буквами A
+    // Додаємо з'єднувальні клітинки з урахуванням правила несоприкосновения
     std::vector<std::pair<int, int>> additionalFilledCells = {
-        {4, 1}, // соединяем A в блоке 2
-        {8, 2}, // соединяем A в блоке 1 с блоком 3
-        {7, 4}, // дополнительное соединение в блоке 3
-        {1, 7}, // соединяем A в блоке 4
-        {5, 8}  // соединяем A в блоке 6
+        {8, 2},  // з'єднує блок 1 з блоком 3
+        {6, 4},  // з'єднання в блоці 3 (змінено з {7,4})
+        {0, 7},  // з'єднання в блоці 4 (змінено з {1,7})
+        {4, 6}   // з'єднання для блока 6 (змінено з {5,6})
     };
-    
-    // Устанавливаем все A и их соединения
+
+    // Спочатку встановлюємо букви A
     for (auto& pos : aPositions) {
         board.setCell(pos.first, pos.second, true);
     }
     
-    // Добавляем соединительные клетки
+    // Потім додаємо з'єднувальні клітини
     for (auto& pos : additionalFilledCells) {
         board.setCell(pos.first, pos.second, true);
     }
     
-    // Устанавливаем S клетки как незакрашенные
+    // Встановлюємо S клітини як незафарбовані
     std::vector<std::pair<int, int>> sPositions = {
         {0, 5}, {9, 4}, {2, 6}, {6, 8}
     };
@@ -175,54 +181,54 @@ void setUpInitialState(Board &board) {
 }
 
 bool solveBacktracking(Board &board, int x, int y) {
-    // Если мы достигли конца доски, проверяем решение
+    // Якщо ми досягли кінця дошки, перевіряємо рішення
     if (y >= BOARD_SIZE) {
         return board.isSolved();
     }
 
-    // Вычисляем следующую клетку
+    // Обчислюємо наступну клітинку
     int nextX = (x + 1) % BOARD_SIZE;
     int nextY = y + (x + 1) / BOARD_SIZE;
     
-    // Пробуем оставить клетку незакрашенной
+    // Пробуємо залишити клітинку незафарбованою
     board.setCell(x, y, false);
-    // Выполняем базовые проверки правил перед рекурсией
+    // Виконуємо базові перевірки правил перед рекурсією
     if (board.checkAdjacentRule() && board.checkContinuityRule()) {
         if (solveBacktracking(board, nextX, nextY)) {
             return true;
         }
     }
     
-    // Пробуем закрасить клетку
+    // Пробуємо зафарбувати клітинку
     board.setCell(x, y, true);
-    // Выполняем базовые проверки правил перед рекурсией
+    // Виконуємо базові перевірки правил перед рекурсією
     if (board.checkAdjacentRule() && !board.checkCrossingRule()) {
-        // ИСПРАВЛЕНИЕ: Если правила НЕ нарушены, продолжаем решение
+        // ІСПРАВЛЕННЯ: Якщо правила НЕ порушені, продовжуємо рішення
         if (solveBacktracking(board, nextX, nextY)) {
             return true;
         }
     }
     
-    // Возвращаем клетку в незакрашенное состояние (бэктрек)
+    // Повертаємо клітинку в незафарбоване стан (бэктрек)
     board.setCell(x, y, false);
     
     return false;
 }
 
-// Правила для букв A и S
+// Правила для літер A і S
 bool checkLetterRules(const Board &board, int x, int y) {
     char letter = board.getCellNumber(x, y);
     bool isMarked = board.getCell(x, y);
     
     if (letter == 'A') {
-        // Для буквы A: клетка должна быть закрашена
+        // Для літери A: клітинка має бути зафарбована
         return isMarked;
     } else if (letter == 'S') {
-        // Для буквы S: клетка не должна быть закрашена
+        // Для літери S: клітинка не має бути зафарбована
         return !isMarked;
     }
     
-    return true; // Нет ограничений для клеток без букв
+    return true; // Немає обмежень для клітинок без літер
 }
 
 // Добавляем прототип функции перед её использованием
@@ -265,21 +271,6 @@ bool solveOptimizedBacktracking(Board &board) {
     // Устанавливаем начальные A и S без использования getCellNumber
     setUpInitialState(board);
     
-    // Проверка правил после ручной установки букв
-    std::cout << "Состояние доски после установки A:" << std::endl;
-    printBoard(board);
-    
-    std::cout << "Проверка правил после ручной установки:" << std::endl;
-    std::cout << "Правило соседства: " << (board.checkAdjacentRule() ? "OK" : "нарушено") << std::endl;
-    std::cout << "Правило непрерывности: " << (board.checkContinuityRule() ? "OK" : "нарушено") << std::endl;
-    std::cout << "Правило пересечений: " << (customCheckCrossingRule(board) ? "OK" : "нарушено") << std::endl;
-    
-    // Если правила нарушены после установки букв, решения нет
-    if (!board.checkAdjacentRule() || !board.checkContinuityRule() || board.checkCrossingRule()) {
-        std::cout << "Невозможно решить: правила нарушены после установки A" << std::endl;
-        return false;
-    }
-    
     // Создаем список всех клеток, которые нужно проверить
     // Исключаем клетки, которые мы уже установили (A и S)
     std::vector<std::pair<int, int>> aPositions = {
@@ -313,7 +304,6 @@ bool solveOptimizedBacktracking(Board &board) {
         }
     }
     
-    std::cout << "Начинаем решение с " << cells.size() << " клетками для заполнения" << std::endl;
     return solveWithCellsImproved(board, cells, 0);
 }
 
@@ -392,13 +382,13 @@ bool checkEmptyCellsContinuity(const Board &board) {
     return true;
 }
 
-// Структура для хранения информации о блоках
+// Структура для зберігання інформації про блоки
 struct BlockInfo {
     std::vector<std::pair<int, int>> cells;
     std::vector<bool> states;
 };
 
-// Проверка симметрии блока
+// Перевірка симетрії блока
 bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     if (blockCells.empty()) return true;
     
@@ -445,7 +435,7 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
     return true;
 }
 
-// Функция проверки симметрии блока при повороте на 180 градусов
+// Функція перевірки симетрії блока при повороті на 180 градусів
 bool checkBlock180Symmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     if (blockCells.empty()) return true;
     
@@ -484,7 +474,7 @@ bool checkBlock180Symmetry(const Board &board, const std::vector<std::pair<int, 
     return true;
 }
 
-// Функция определения типа блока (с буквой A или S)
+// Функція визначення типу блока (з літерою A або S)
 char getBlockType(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     for (auto& cell : blockCells) {
         char letter = board.getCellNumber(cell.first, cell.second);
@@ -495,20 +485,20 @@ char getBlockType(const Board &board, const std::vector<std::pair<int, int>>& bl
     return ' ';
 }
 
-// Обновленная функция проверки блоков
+// Оновлена функція перевірки блоків
 bool checkBlockRules(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     char blockType = getBlockType(board, blockCells);
     bool isSymmetric = checkBlock180Symmetry(board, blockCells);
     
     if (blockType == 'S') {
-        // Блоки с S должны быть симметричны
+        // Блоки з S повинні бути симетричні
         return isSymmetric;
     } else if (blockType == 'A') {
-        // Блоки с A не должны быть симметричны
+        // Блоки з A не повинні бути симетричні
         return !isSymmetric;
     }
     
-    return true; // Для блоков без букв нет ограничений
+    return true; // Для блоків без букв немає обмежень
 }
 
 // Обновляем функцию проверки всех блоков
@@ -523,70 +513,52 @@ bool checkAllBlocksSymmetry(const Board &board) {
 
 // Модифицируем solveWithCellsImproved для проверки симметрии
 bool solveWithCellsImproved(Board &board, const std::vector<std::pair<int, int>>& cells, int index) {
-    // Выход из рекурсии - все клетки заполнены
-    if (index >= static_cast<int>(cells.size())) {
-        // Проверяем все правила вместе
-        bool noAdjacentFilledOk = checkNoAdjacentFilled(board);
-        bool emptyContinuityOk = checkEmptyCellsContinuity(board);
-        bool symmetryOk = checkAllBlocksSymmetry(board);
-        
-        if (!noAdjacentFilledOk || !emptyContinuityOk || !symmetryOk) {
-            std::cout << "Доска заполнена, но решение не найдено. Дополнительная проверка:" << std::endl;
-            std::cout << "Правило несоприкосновения закрашенных клеток: " << (noAdjacentFilledOk ? "OK" : "нарушено") << std::endl;
-            std::cout << "Правило связности незакрашенных клеток: " << (emptyContinuityOk ? "OK" : "нарушено") << std::endl;
-            return false;
-        }
-        
-        return true; // Все правила выполнены, решение найдено
+    if (!checkNoAdjacentFilled(board) || !checkEmptyCellsContinuity(board)) {
+        return false;
     }
-    
-    static int steps = 0;
-    if (++steps % 10000 == 0) {
-        std::cout << "Проверено вариантов: " << steps << ", текущий индекс: " << index << "/" << cells.size() << std::endl;
-        if (steps % 100000 == 0) {
-            std::cout << "Текущее состояние доски:" << std::endl;
-            printBoard(board);
-        }
-    }
-    
-    int x = cells[index].first;
-    int y = cells[index].second;
-    
-    // Проверяем, можно ли закрасить текущую клетку
-    bool canFill = true;
-    for (int dx = -1; dx <= 1; dx++) {
-        for (int dy = -1; dy <= 1; dy++) {
-            if (dx == 0 && dy == 0) continue;
-            if (abs(dx) + abs(dy) != 1) continue; // Проверяем только соседей по сторонам
-            
-            int nx = x + dx, ny = y + dy;
-            if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE && board.getCell(nx, ny)) {
-                canFill = false;
+
+    // Быстрая проверка текущего блока
+    if (index > 0) {
+        for (const auto& block : BLOCKS) {
+            if (std::find(block.begin(), block.end(), cells[index-1]) != block.end()) {
+                char type = getBlockType(board, block);
+                if (type != ' ' && !checkBlockRules(board, block)) {
+                    return false;
+                }
                 break;
             }
         }
-        if (!canFill) break;
     }
-    
-    // Пробуем сначала НЕ закрашивать клетку
+
+    if (index >= static_cast<int>(cells.size())) {
+        return checkAllBlocksSymmetry(board);
+    }
+
+    int x = cells[index].first;
+    int y = cells[index].second;
+
+    // Пробуем сначала НЕ закрашивать
     board.setCell(x, y, false);
-    if (checkEmptyCellsContinuity(board)) {
-        if (solveWithCellsImproved(board, cells, index + 1)) {
-            return true;
+    if (solveWithCellsImproved(board, cells, index + 1)) {
+        return true;
+    }
+
+    // Проверяем возможность закрасить
+    for (int d = 0; d < 4; d++) {
+        int nx = x + (d == 0 ? -1 : d == 1 ? 1 : 0);
+        int ny = y + (d == 2 ? -1 : d == 3 ? 1 : 0);
+        if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE && 
+            board.getCell(nx, ny)) {
+            board.setCell(x, y, false);
+            return false;
         }
     }
-    
-    // Затем пробуем закрасить клетку, если это не нарушает правило соприкосновения
-    if (canFill) {
-        board.setCell(x, y, true);
-        if (checkEmptyCellsContinuity(board)) {
-            if (solveWithCellsImproved(board, cells, index + 1)) {
-                return true;
-            }
-        }
+
+    board.setCell(x, y, true);
+    if (solveWithCellsImproved(board, cells, index + 1)) {
+        return true;
     }
-    
-    // Если не нашли решение, восстанавливаем незакрашенное состояние
+
     board.setCell(x, y, false);
     return false;
 }
