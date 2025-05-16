@@ -88,8 +88,8 @@ bool Board::isBlockSymmetric(int blockId) const {
         maxY = std::max(maxY, cell.second);
     }
     
-    int centerX = (minX + maxX) / 2;
-    int centerY = (minY + maxY) / 2;
+    int centerX = (minX + maxX) / 2; (void)centerX;
+    int centerY = (minY + maxY) / 2; (void)centerY;
     
     // Проверим симметрию относительно центра
     for (int y = minY; y <= maxY; ++y) {
@@ -219,8 +219,59 @@ bool Board::checkNumbersRule() const {
 }
 
 bool Board::checkCrossingRule() const {
-    // TODO: Реализовать проверку правила о непрерывных линиях
+    // Проверяем каждую строку
+    for (int y = 0; y < height; ++y) {
+        bool foundFilled = false;  // Нашли закрашенную клетку
+        bool foundEmpty = false;   // Нашли пустую клетку после закрашенной
+        
+        for (int x = 0; x < width; ++x) {
+            if (cells[y][x].isFilled()) {
+                if (foundEmpty) {
+                    // Если нашли закрашенную клетку после пустой,
+                    // значит есть разрыв в линии - правило нарушено
+                    return false;
+                }
+                foundFilled = true;
+            } else {
+                // Незакрашенная клетка
+                if (foundFilled) {
+                    foundEmpty = true;
+                }
+            }
+        }
+    }
+    
+    // Проверяем каждый столбец
+    for (int x = 0; x < width; ++x) {
+        bool foundFilled = false;
+        bool foundEmpty = false;
+        
+        for (int y = 0; y < height; ++y) {
+            if (cells[y][x].isFilled()) {
+                if (foundEmpty) {
+                    // Если нашли закрашенную клетку после пустой,
+                    // значит есть разрыв в линии - правило нарушено
+                    return false;
+                }
+                foundFilled = true;
+            } else {
+                // Незакрашенная клетка
+                if (foundFilled) {
+                    foundEmpty = true;
+                }
+            }
+        }
+    }
+    
     return true;
+}
+
+
+char Board::getCellNumber(int x, int y) const {
+    if (x >= 0 && x < width && y >= 0 && y < height && cells[y][x].hasNumber()) {
+        return static_cast<char>(cells[y][x].getValue());
+    }
+    return 0;
 }
 
 bool Board::checkSymmetryRules() const {
