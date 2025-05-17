@@ -1,3 +1,18 @@
+/* ----------------------------------------------------------------<Header>-
+ * Name: main.cpp
+ * Title: Puzzle Solver with A and S letters
+ * Group: TI-81
+ * Written: 2023-12-14
+ * Description: Program solves a 10x10 board puzzle where you need to
+ * place filled cells according to the following rules:
+ * - Cells with letter A must be filled
+ * - Cells with letter S must be empty
+ * - Filled cells cannot share sides
+ * - All empty cells must be connected
+ * - Blocks with letter S must be symmetric when rotated 180°
+ * - Blocks with letter A must not be symmetric when rotated 180°
+ ------------------------------------------------------------------</Header>-*/
+
 #include "puzzle/board.h"
 #include <iostream>
 #include <vector>
@@ -35,6 +50,13 @@ const std::vector<std::vector<std::pair<int, int>>> BLOCKS = {
 };
 
 void setPuzzle(Board &board) {
+    /* ---------------------------------------------------------------------[<]-
+     * Function: setPuzzle
+     * Synopsis: Инициализирует начальное состояние доски, устанавливая блоки
+     *          и буквы A и S в соответствующих позициях
+     * Parameters: board - ссылка на объект доски
+     * Returns: void
+     ---------------------------------------------------------------------[>]-*/
     // Ініціалізація базової дошки
     board.initialize();
     
@@ -140,6 +162,13 @@ void setPuzzle(Board &board) {
 // Спробуємо простіший підхід, безпосередньо зафарбовуючи клітинки A
 // та перевіряючи коректність без опори на getCellNumber
 void setUpInitialState(Board &board) {
+    /* ---------------------------------------------------------------------[<]-
+     * Function: setUpInitialState
+     * Synopsis: Устанавливает начальное состояние доски, зафарбовуючи клітинки
+     *          с буквами A и добавляя соединительные клетки
+     * Parameters: board - ссылка на объект доски
+     * Returns: void
+     ---------------------------------------------------------------------[>]-*/
     // Спочатку встановлюємо всі клітинки як незафарбовані
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
@@ -390,6 +419,13 @@ struct BlockInfo {
 
 // Перевірка симетрії блока
 bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
+    /* ---------------------------------------------------------------------[<]-
+     * Function: checkBlockSymmetry
+     * Synopsis: Проверяет симметрию блока относительно вертикальной оси
+     * Parameters: board - ссылка на объект доски
+     *            blockCells - вектор клеток, составляющих блок
+     * Returns: true если блок симметричен, false в противном случае
+     ---------------------------------------------------------------------[>]-*/
     if (blockCells.empty()) return true;
     
     // Находим центр блока
@@ -437,6 +473,13 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
 
 // Функція перевірки симетрії блока при повороті на 180 градусів
 bool checkBlock180Symmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
+    /* ---------------------------------------------------------------------[<]-
+     * Function: checkBlock180Symmetry
+     * Synopsis: Проверяет симметрию блока при повороте на 180 градусов
+     * Parameters: board - ссылка на объект доски
+     *            blockCells - вектор клеток, составляющих блок
+     * Returns: true если блок симметричен при повороте на 180°, false в противном случае
+     ---------------------------------------------------------------------[>]-*/
     if (blockCells.empty()) return true;
     
     // Находим границы блока

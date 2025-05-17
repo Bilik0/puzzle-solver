@@ -1,5 +1,17 @@
+/* ----------------------------------------------------------------<Header>-
+ * Name: cell.cpp
+ * Title: Cell Class Implementation
+ * Written: 2023-12-14
+ * Description: Implements the functionality for individual board cells,
+ *             managing their state and properties
+ ------------------------------------------------------------------</Header>-*/
+
 #include "cell.h"
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Cell::Cell
+ * Synopsis: Default constructor initializing cell to empty state
+ ---------------------------------------------------------------------[>]-*/
 Cell::Cell() : filled(false), blockId(-1), value(0), hasNum(false), symmetry(false), asymmetry(false) {
 }
 

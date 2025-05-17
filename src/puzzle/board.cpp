@@ -1,11 +1,29 @@
+/* ----------------------------------------------------------------<Header>-
+ * Name: board.cpp
+ * Title: Board Class Implementation
+ * Written: 2023-12-14
+ * Description: Implements the game board functionality for a puzzle solver,
+ *             including cell management, rule checking and block operations
+ ------------------------------------------------------------------</Header>-*/
+
 #include "board.h"
 #include <queue>
 #include <set>
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::Board
+ * Synopsis: Constructor that initializes the game board with given dimensions
+ * Parameters: width - board width
+ *            height - board height
+ ---------------------------------------------------------------------[>]-*/
 Board::Board(int width, int height) : width(width), height(height) {
     cells.resize(height, std::vector<Cell>(width));
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::initialize
+ * Synopsis: Initializes the game board, setting all cells to their default state
+ ---------------------------------------------------------------------[>]-*/
 void Board::initialize() {
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
@@ -18,12 +36,26 @@ void Board::initialize() {
     }
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::setCell
+ * Synopsis: Sets the filled state of a specific cell on the board
+ * Parameters: x - x-coordinate of the cell
+ *            y - y-coordinate of the cell
+ *            filled - new filled state for the cell
+ ---------------------------------------------------------------------[>]-*/
 void Board::setCell(int x, int y, bool filled) {
     if (x >= 0 && x < width && y >= 0 && y < height) {
         cells[y][x].setFilled(filled);
     }
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::getCell
+ * Synopsis: Gets the filled state of a specific cell on the board
+ * Parameters: x - x-coordinate of the cell
+ *            y - y-coordinate of the cell
+ * Returns: Filled state of the cell
+ ---------------------------------------------------------------------[>]-*/
 bool Board::getCell(int x, int y) const {
     if (x >= 0 && x < width && y >= 0 && y < height) {
         return cells[y][x].isFilled();
@@ -31,12 +63,27 @@ bool Board::getCell(int x, int y) const {
     return false; // Out of bounds
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::setBlockId
+ * Synopsis: Sets the block ID of a specific cell on the board
+ * Parameters: x - x-coordinate of the cell
+ *            y - y-coordinate of the cell
+ *            blockId - new block ID for the cell
+ ---------------------------------------------------------------------[>]-*/
 void Board::setBlockId(int x, int y, int blockId) {
     if (x >= 0 && x < width && y >= 0 && y < height) {
         cells[y][x].setBlockId(blockId);
     }
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::setCellNumber
+ * Synopsis: Sets the number and type (symmetric/asymmetric) of a specific cell
+ * Parameters: x - x-coordinate of the cell
+ *            y - y-coordinate of the cell
+ *            type - type of the cell ('S' for symmetric, 'A' for asymmetric)
+ *            value - numeric value to be set to the cell
+ ---------------------------------------------------------------------[>]-*/
 void Board::setCellNumber(int x, int y, char type, int value) {
     if (x >= 0 && x < width && y >= 0 && y < height) {
         cells[y][x].setHasNumber(true);
@@ -51,6 +98,12 @@ void Board::setCellNumber(int x, int y, char type, int value) {
     }
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::getCellsInBlock
+ * Synopsis: Retrieves all cells belonging to a specific block
+ * Parameters: blockId - ID of the block
+ * Returns: Vector of coordinates representing cells in the block
+ ---------------------------------------------------------------------[>]-*/
 std::vector<std::pair<int, int>> Board::getCellsInBlock(int blockId) const {
     std::vector<std::pair<int, int>> blockCells;
     for (int y = 0; y < height; ++y) {
@@ -63,6 +116,12 @@ std::vector<std::pair<int, int>> Board::getCellsInBlock(int blockId) const {
     return blockCells;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::countFilledCellsInBlock
+ * Synopsis: Counts the number of filled cells in a specific block
+ * Parameters: blockId - ID of the block
+ * Returns: Number of filled cells in the block
+ ---------------------------------------------------------------------[>]-*/
 int Board::countFilledCellsInBlock(int blockId) const {
     int count = 0;
     for (int y = 0; y < height; ++y) {
@@ -75,6 +134,12 @@ int Board::countFilledCellsInBlock(int blockId) const {
     return count;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::isBlockSymmetric
+ * Synopsis: Checks if a specific block is symmetric
+ * Parameters: blockId - ID of the block
+ * Returns: True if the block is symmetric, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::isBlockSymmetric(int blockId) const {
     auto blockCells = getCellsInBlock(blockId);
     if (blockCells.empty()) return false;
@@ -114,10 +179,21 @@ bool Board::isBlockSymmetric(int blockId) const {
     return true;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::isBlockAsymmetric
+ * Synopsis: Checks if a specific block is asymmetric
+ * Parameters: blockId - ID of the block
+ * Returns: True if the block is asymmetric, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::isBlockAsymmetric(int blockId) const {
     return !isBlockSymmetric(blockId);
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::checkContinuityRule
+ * Synopsis: Checks the continuity rule for the puzzle
+ * Returns: True if the rule is satisfied, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::checkContinuityRule() const {
     // Проверка целостности незакрашенных клеток с помощью BFS
     std::vector<std::vector<bool>> visited(height, std::vector<bool>(width, false));
@@ -172,6 +248,11 @@ bool Board::checkContinuityRule() const {
     return true;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::checkAdjacentRule
+ * Synopsis: Checks the adjacent rule for the puzzle
+ * Returns: True if the rule is satisfied, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::checkAdjacentRule() const {
     // Проверка, что закрашенные клетки не касаются сторонами
     for (int y = 0; y < height; ++y) {
@@ -196,6 +277,11 @@ bool Board::checkAdjacentRule() const {
     return true;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::checkNumbersRule
+ * Synopsis: Checks the numbers rule for the puzzle
+ * Returns: True if the rule is satisfied, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::checkNumbersRule() const {
     std::set<int> checkedBlocks;
     
@@ -218,6 +304,11 @@ bool Board::checkNumbersRule() const {
     return true;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::checkCrossingRule
+ * Synopsis: Checks the crossing rule for the puzzle
+ * Returns: True if the rule is satisfied, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::checkCrossingRule() const {
     // Проверяем каждую строку
     for (int y = 0; y < height; ++y) {
@@ -266,7 +357,13 @@ bool Board::checkCrossingRule() const {
     return true;
 }
 
-
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::getCellNumber
+ * Synopsis: Retrieves the numeric value of a specific cell
+ * Parameters: x - x-coordinate of the cell
+ *            y - y-coordinate of the cell
+ * Returns: Numeric value of the cell, 0 if not set
+ ---------------------------------------------------------------------[>]-*/
 char Board::getCellNumber(int x, int y) const {
     if (x >= 0 && x < width && y >= 0 && y < height && cells[y][x].hasNumber()) {
         return static_cast<char>(cells[y][x].getValue());
@@ -274,6 +371,11 @@ char Board::getCellNumber(int x, int y) const {
     return 0;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::checkSymmetryRules
+ * Synopsis: Checks the symmetry rules for the puzzle
+ * Returns: True if the rules are satisfied, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::checkSymmetryRules() const {
     std::set<int> checkedBlocks;
     
@@ -295,6 +397,11 @@ bool Board::checkSymmetryRules() const {
     return true;
 }
 
+/* ---------------------------------------------------------------------[<]-
+ * Function: Board::isSolved
+ * Synopsis: Checks if the puzzle is solved
+ * Returns: True if the puzzle is solved, false otherwise
+ ---------------------------------------------------------------------[>]-*/
 bool Board::isSolved() const {
     return checkContinuityRule() && 
            checkAdjacentRule() &&
