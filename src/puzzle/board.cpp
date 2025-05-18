@@ -147,7 +147,7 @@ bool Board::isBlockSymmetric(int blockId) const {
     auto blockCells = getCellsInBlock(blockId);
     if (blockCells.empty()) return false;
     
-    // Найдем центр блока
+    // Знаходимо центр блока
     int minX = width, minY = height, maxX = 0, maxY = 0;
     for (const auto& cell : blockCells) {
         minX = std::min(minX, cell.first);
@@ -159,15 +159,15 @@ bool Board::isBlockSymmetric(int blockId) const {
     int centerX = (minX + maxX) / 2; (void)centerX;
     int centerY = (minY + maxY) / 2; (void)centerY;
     
-    // Проверим симметрию относительно центра
+    // Перевіряємо симетрію відносно центра
     for (int y = minY; y <= maxY; ++y) {
         for (int x = minX; x <= maxX; ++x) {
             if (cells[y][x].getBlockId() == blockId) {
-                // Вычисляем симметричную точку
+                // Обчислюємо симетричну точку
                 int symX = maxX - (x - minX);
                 int symY = maxY - (y - minY);
                 
-                // Проверяем, что она в том же блоке и имеет то же состояние заполнения
+                // Перевіряємо, що вона в тому ж блоці і має той самий стан заповнення
                 if (symX >= 0 && symX < width && symY >= 0 && symY < height) {
                     if (cells[symY][symX].getBlockId() != blockId || 
                         cells[y][x].isFilled() != cells[symY][symX].isFilled()) {
@@ -213,7 +213,7 @@ bool Board::checkContinuityRule() const {
         }
     }
     
-    if (startX == -1) return false; // Нет незакрашенных клеток
+    if (startX == -1) return false; // Немає незафарбованих клітинок
     
     // BFS
     std::queue<std::pair<int, int>> q;
@@ -313,21 +313,21 @@ bool Board::checkNumbersRule() const {
  * Returns: True if the rule is satisfied, false otherwise
  ---------------------------------------------------------------------[>]-*/
 bool Board::checkCrossingRule() const {
-    // Проверяем каждую строку
+    // Перевіряємо кожен рядок
     for (int y = 0; y < height; ++y) {
-        bool foundFilled = false;  // Нашли закрашенную клетку
-        bool foundEmpty = false;   // Нашли пустую клетку после закрашенной
+        bool foundFilled = false;  // Знайшли зафарбовану клітинку
+        bool foundEmpty = false;   // Знайшли пусту клітинку після зафарбованої
         
         for (int x = 0; x < width; ++x) {
             if (cells[y][x].isFilled()) {
                 if (foundEmpty) {
-                    // Если нашли закрашенную клетку после пустой,
-                    // значит есть разрыв в линии - правило нарушено
+                    // Якщо знайшли зафарбовану клітинку після пустої,
+                    // значить є розрив у лінії - правило порушено
                     return false;
                 }
                 foundFilled = true;
             } else {
-                // Незакрашенная клетка
+                // Незафарбована клітинка
                 if (foundFilled) {
                     foundEmpty = true;
                 }
@@ -335,7 +335,7 @@ bool Board::checkCrossingRule() const {
         }
     }
     
-    // Проверяем каждый столбец
+    // Перевіряємо кожен стовпець
     for (int x = 0; x < width; ++x) {
         bool foundFilled = false;
         bool foundEmpty = false;
@@ -343,13 +343,13 @@ bool Board::checkCrossingRule() const {
         for (int y = 0; y < height; ++y) {
             if (cells[y][x].isFilled()) {
                 if (foundEmpty) {
-                    // Если нашли закрашенную клетку после пустой,
-                    // значит есть разрыв в линии - правило нарушено
+                    // Якщо знайшли зафарбовану клітинку після пустої,
+                    // значить є розрив у лінії - правило порушено
                     return false;
                 }
                 foundFilled = true;
             } else {
-                // Незакрашенная клетка
+                // Незафарбована клітинка
                 if (foundFilled) {
                     foundEmpty = true;
                 }

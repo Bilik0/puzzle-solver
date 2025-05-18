@@ -23,9 +23,10 @@ public:
     bool getCell(int x, int y) const;
     bool isSolved() const;
     
-    // Методы для работы с блоками и правилами
+    // Методи для роботи з блоками та правилами
     void setBlockId(int x, int y, int blockId);
     void setCellNumber(int x, int y, char type, int value = 0);
+    
     /* ---------------------------------------------------------------------[<]-
      * Function: getCellNumber
      * Synopsis: Gets the letter (A or S) assigned to the cell at given coordinates
@@ -41,11 +42,11 @@ public:
     bool checkAllRules() const;
 
 
-    bool checkContinuityRule() const;  // Правило целостности незакрашенных клеток
-    bool checkNumbersRule() const;     // Правило соответствия чисел в блоках
-    bool checkAdjacentRule() const;    // Правило о неприкосновении закрашенных клеток
-    bool checkCrossingRule() const;    // Правило о непрерывных линиях
-    bool checkSymmetryRules() const;   // Правила симметрии/асимметрии
+    bool checkContinuityRule() const;  // Правило цілісності незафарбованих клітинок
+    bool checkNumbersRule() const;     // Правило відповідності чисел у блоках
+    bool checkAdjacentRule() const;    // Правило про недоторканність зафарбованих клітинок
+    bool checkCrossingRule() const;    // Правило про неперервні лінії
+    bool checkSymmetryRules() const;   // Правила симетрії/асиметрії
 
 private:
     int width;
