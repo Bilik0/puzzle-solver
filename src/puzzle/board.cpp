@@ -239,7 +239,7 @@ bool Board::checkContinuityRule() const {
         }
     }
     
-    // Проверяем, что все незакрашенные клетки были посещены
+    // Перевіряємо, що всі незафарбовані клітини були відвідані
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             if (!cells[y][x].isFilled() && !visited[y][x]) {
@@ -257,7 +257,7 @@ bool Board::checkContinuityRule() const {
  * Returns: True if the rule is satisfied, false otherwise
  ---------------------------------------------------------------------[>]-*/
 bool Board::checkAdjacentRule() const {
-    // Проверка, что закрашенные клетки не касаются сторонами
+    // Знаходимо координати симетричної клітинки при повороті на 180°
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             if (cells[y][x].isFilled()) {

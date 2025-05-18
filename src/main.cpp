@@ -54,9 +54,9 @@ const std::vector<std::vector<std::pair<int, int>>> BLOCKS = {
 void setPuzzle(Board &board) {
     /* ---------------------------------------------------------------------[<]-
      * Function: setPuzzle
-     * Synopsis: Инициализирует начальное состояние доски, устанавливая блоки
-     *          и буквы A и S в соответствующих позициях
-     * Parameters: board - ссылка на объект доски
+     * Synopsis: Initializes the initial state of the board by setting blocks
+     *           and the letters A and S in their respective positions
+     * Parameters: board - board object reference
      * Returns: void
      ---------------------------------------------------------------------[>]-*/
     // Ініціалізація базової дошки
@@ -166,9 +166,9 @@ void setPuzzle(Board &board) {
 void setUpInitialState(Board &board) {
     /* ---------------------------------------------------------------------[<]-
      * Function: setUpInitialState
-     * Synopsis: Устанавливает начальное состояние доски, зафарбовуючи клітинки
-     *          с буквами A и добавляя соединительные клетки
-     * Parameters: board - ссылка на объект доски
+     * Synopsis: Sets the initial state of the board by coloring the cells
+     * with the letters A and adding connecting squares.
+     * Parameters: board - reference to the board object
      * Returns: void
      ---------------------------------------------------------------------[>]-*/
     // Спочатку встановлюємо всі клітинки як незафарбовані
@@ -262,15 +262,15 @@ bool checkLetterRules(const Board &board, int x, int y) {
     return true; // Немає обмежень для клітинок без літер
 }
 
-// Добавляем прототип функции перед её использованием
+// Додаємо прототип функції перед її використанням
 bool solveWithCells(Board &board, const std::vector<std::pair<int, int>>& cells, int index);
-// Добавляем прототип улучшенной функции
+// Додаємо прототип поліпшеної функції
 bool solveWithCellsImproved(Board &board, const std::vector<std::pair<int, int>>& cells, int index);
-// Добавляем прототип функции вывода доски
+// Додаємо прототип функції виведення дошки
 void printBoard(const Board &board);
 
 bool customCheckCrossingRule(const Board &board) {
-    // В пустой доске нет пересечений
+    // У порожній дошці немає перетинів
     bool anyFilled = false;
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
@@ -282,28 +282,28 @@ bool customCheckCrossingRule(const Board &board) {
         if (anyFilled) break;
     }
     
-    if (!anyFilled) return true; // пустая доска всегда корректна
+    if (!anyFilled) return true; // порожня дошка завжди коректна
     
-    // Проверяем стандартным методом
+    // Перевіряємо стандартним методом
     return !board.checkCrossingRule();
 }
 
 bool solveOptimizedBacktracking(Board &board) {
-    // Создаем вектор всех клеток, которые нужно заполнить
+    // Створюємо вектор усіх клітин, які потрібно заповнити
     std::vector<std::pair<int, int>> cells;
     
-    // Сначала помечаем все клетки как незакрашенные (пустая доска)
+    // Спочатку позначаємо всі клітинки як незафарбовані (порожня дошка)
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
             board.setCell(x, y, false);
         }
     }
     
-    // Устанавливаем начальные A и S без использования getCellNumber
+    // Встановлюємо початкові A і S без використання getCellNumber
     setUpInitialState(board);
     
-    // Создаем список всех клеток, которые нужно проверить
-    // Исключаем клетки, которые мы уже установили (A и S)
+    // Створюємо список усіх клітин, які потрібно перевірити
+    // Виключаємо клітини, які ми вже встановили (A і S)
     std::vector<std::pair<int, int>> aPositions = {
         {3, 1}, {4, 2}, {9, 1}, {7, 3}, {8, 3}, {1, 6}, {5, 7}, {0, 8}
     };
@@ -338,28 +338,28 @@ bool solveOptimizedBacktracking(Board &board) {
     return solveWithCellsImproved(board, cells, 0);
 }
 
-// Добавляем новую функцию проверки правила несоприкосновения закрашенных клеток
+// Додаємо нову функцію перевірки правила недотику зафарбованих клітин
 bool checkNoAdjacentFilled(const Board &board) {
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
-            if (board.getCell(x, y)) { // Если клетка закрашена
-                // Проверяем только горизонтальных и вертикальных соседей
-                if ((x > 0 && board.getCell(x-1, y)) ||            // слева
+            if (board.getCell(x, y)) { // Якщо клітина зафарбована
+                // Перевіряємо тільки горизонтальних і вертикальних сусідів
+                if ((x > 0 && board.getCell(x-1, y)) ||            // зліва
                     (x < BOARD_SIZE-1 && board.getCell(x+1, y)) || // справа
-                    (y > 0 && board.getCell(x, y-1)) ||            // сверху
-                    (y < BOARD_SIZE-1 && board.getCell(x, y+1))) {  // снизу
-                    return false; // Нашли соприкасающиеся закрашенные клетки
+                    (y > 0 && board.getCell(x, y-1)) ||            // зверху
+                    (y < BOARD_SIZE-1 && board.getCell(x, y+1))) {  // знизу
+                    return false; // Знайшли дотичні зафарбовані клітини, що стикаються
                 }
-                // Диагональные соседи разрешены, их не проверяем
+                // Діагональні сусіди дозволені, їх не перевіряємо
             }
         }
     }
     return true;
 }
 
-// Проверка связности незакрашенных клеток
+// Перевірка зв'язності незафарбованих клітин
 bool checkEmptyCellsContinuity(const Board &board) {
-    // Находим первую незакрашенную клетку
+    // Знаходимо першу незафарбовану клітинку
     int startX = -1, startY = -1;
     for (int y = 0; y < BOARD_SIZE && startX == -1; ++y) {
         for (int x = 0; x < BOARD_SIZE && startX == -1; ++x) {
@@ -371,9 +371,9 @@ bool checkEmptyCellsContinuity(const Board &board) {
         }
     }
     
-    if (startX == -1) return true; // Все клетки закрашены, правило выполнено тривиально
+    if (startX == -1) return true; // Усі клітини зафарбовані, правило виконано тривіально
     
-    // Выполняем поиск в ширину из найденной незакрашенной клетки
+    // Виконуємо пошук завширшки зі знайденої незафарбованої клітинки
     std::vector<std::vector<bool>> visited(BOARD_SIZE, std::vector<bool>(BOARD_SIZE, false));
     std::vector<std::pair<int, int>> queue;
     
@@ -385,7 +385,7 @@ bool checkEmptyCellsContinuity(const Board &board) {
         int y = queue.front().second;
         queue.erase(queue.begin());
         
-        // Проверяем соседей
+        // Перевіряємо сусідів
         int dx[4] = {-1, 1, 0, 0};
         int dy[4] = {0, 0, -1, 1};
         
@@ -401,11 +401,11 @@ bool checkEmptyCellsContinuity(const Board &board) {
         }
     }
     
-    // Проверяем, что все незакрашенные клетки посещены
+    // Перевіряємо, що всі незафарбовані клітини відвідані
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
             if (!board.getCell(x, y) && !visited[y][x]) {
-                return false; // Нашли непосещенную незакрашенную клетку
+                return false; // Знайшли невідвідувану незафарбовану клітку
             }
         }
     }
@@ -423,10 +423,10 @@ struct BlockInfo {
 bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     /* ---------------------------------------------------------------------[<]-
      * Function: checkBlockSymmetry
-     * Synopsis: Проверяет симметрию блока относительно вертикальной оси
-     * Parameters: board - ссылка на объект доски
-     *            blockCells - вектор клеток, составляющих блок
-     * Returns: true если блок симметричен, false в противном случае
+     * Synopsis: Checks block symmetry with respect to the vertical axis
+     * Parameters: board - reference to the board object
+     * blockCells - vector of cells that make up the block
+     * Returns: true if the block is symmetric, false otherwise.
      ---------------------------------------------------------------------[>]-*/
     if (blockCells.empty()) return true;
     
@@ -477,14 +477,14 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
 bool checkBlock180Symmetry(const Board &board, const std::vector<std::pair<int, int>>& blockCells) {
     /* ---------------------------------------------------------------------[<]-
      * Function: checkBlock180Symmetry
-     * Synopsis: Проверяет симметрию блока при повороте на 180 градусов
-     * Parameters: board - ссылка на объект доски
-     *            blockCells - вектор клеток, составляющих блок
-     * Returns: true если блок симметричен при повороте на 180°, false в противном случае
+     * Synopsis: Checks block symmetry when rotated by 180 degrees
+     * Parameters: board - reference to the board object
+     * blockCells - vector of cells that make up the block
+     * Returns: true if the block is symmetric when rotated by 180°, false otherwise.
      ---------------------------------------------------------------------[>]-*/
     if (blockCells.empty()) return true;
     
-    // Находим границы блока
+    // Знаходимо межі блоку
     int minX = BOARD_SIZE, maxX = 0, minY = BOARD_SIZE, maxY = 0;
     for (auto& cell : blockCells) {
         minX = std::min(minX, cell.first);
@@ -493,21 +493,21 @@ bool checkBlock180Symmetry(const Board &board, const std::vector<std::pair<int, 
         maxY = std::max(maxY, cell.second);
     }
     
-    // Проверяем симметрию при повороте на 180 градусов
+    // Перевіряємо симетрію при повороті на 180 градусів
     for (auto& cell : blockCells) {
         int x = cell.first;
         int y = cell.second;
         
-        // Находим координаты симметричной клетки при повороте на 180°
+        // Знаходимо координати симетричної клітинки при повороті на 180°
         int rotX = maxX - (x - minX);
         int rotY = maxY - (y - minY);
         
-        // Проверяем, есть ли клетка в блоке
+        // Перевіряємо, чи є клітина в блоці
         bool hasRotated = false;
         for (auto& rotCell : blockCells) {
             if (rotCell.first == rotX && rotCell.second == rotY) {
                 hasRotated = true;
-                // Проверяем совпадение состояний
+                // Перевіряємо збіг станів
                 if (board.getCell(x, y) != board.getCell(rotX, rotY)) {
                     return false;
                 }
