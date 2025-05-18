@@ -1,6 +1,10 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: cell.h
  * Title: Cell Class Definition
+ * Group: TV-41
+ * Student: Bilyk Oleksandr
+ * Written: 2025-04-25
+ * Revised: 2025-04-25
  * Description: Defines a single cell on the game board with properties for
  *             state management including filling, block assignment, and symmetry
  ------------------------------------------------------------------</Header>-*/

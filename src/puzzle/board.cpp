@@ -1,6 +1,10 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: board.cpp
  * Title: Board Class Implementation
+ * Group: TV-41
+ * Student: Bilyk Oleksandr
+ * Written: 2025-04-30
+ * Revised: 2025-04-30
  * Description: Implements the game board functionality for a puzzle solver,
  *             including cell management, rule checking and block operations
  ------------------------------------------------------------------</Header>-*/

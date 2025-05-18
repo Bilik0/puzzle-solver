@@ -1,6 +1,10 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: cell.cpp
  * Title: Cell Class Implementation
+ * Group: TV-41
+ * Student: Bilyk Oleksandr
+ * Written: 2025-04-27
+ * Revised: 2025-04-27
  * Description: Implements the functionality for individual board cells,
  *             managing their state and properties
  ------------------------------------------------------------------</Header>-*/

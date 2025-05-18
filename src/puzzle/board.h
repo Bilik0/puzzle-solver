@@ -1,3 +1,13 @@
+/* ----------------------------------------------------------------<Header>-
+ * Name: board.h
+ * Title: Board Class Definition
+ * Group: TV-41
+ * Student: Bilyk Oleksandr
+ * Written: 2025-04-29
+ * Revised: 2025-04-29
+* Description: Defines the game board and its properties, including cell
+ ------------------------------------------------------------------</Header>-*/
+
 #ifndef BOARD_H
 #define BOARD_H
 

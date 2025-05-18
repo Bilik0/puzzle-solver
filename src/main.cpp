@@ -2,6 +2,9 @@
  * Name: main.cpp
  * Title: Puzzle Solver with A and S letters
  * Group: TV-41
+ * Student: Bilyk Oleksandr
+ * Written: 2025-04-22
+ * Revised: 2025-04-22
  * Description: Program solves a 10x10 board puzzle where you need to
  * place filled cells according to the following rules:
  * - Cells with letter A must be filled
