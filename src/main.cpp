@@ -430,7 +430,7 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
      ---------------------------------------------------------------------[>]-*/
     if (blockCells.empty()) return true;
     
-    // Находим центр блока
+    // Знаходимо центр блоку
     int minX = BOARD_SIZE, maxX = 0, minY = BOARD_SIZE, maxY = 0;
     for (auto& cell : blockCells) {
         minX = std::min(minX, cell.first);
@@ -439,14 +439,14 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
         maxY = std::max(maxY, cell.second);
     }
     
-    // Проверяем горизонтальную симметрию
+    // Перевіряємо горизонтальну симетрію
     for (int y = minY; y <= maxY; ++y) {
         for (int x = minX; x <= maxX; ++x) {
             int mirrorX = maxX - (x - minX);
             bool hasOriginal = false, hasMirror = false;
             bool originalState = false, mirrorState = false;
             
-            // Ищем оригинальную клетку
+            // Шукаємо оригінальну клітку
             for (auto& cell : blockCells) {
                 if (cell.first == x && cell.second == y) {
                     hasOriginal = true;
@@ -455,7 +455,7 @@ bool checkBlockSymmetry(const Board &board, const std::vector<std::pair<int, int
                 }
             }
             
-            // Ищем зеркальную клетку
+            // Шукаємо дзеркальну клітку
             for (auto& cell : blockCells) {
                 if (cell.first == mirrorX && cell.second == y) {
                     hasMirror = true;
@@ -546,7 +546,7 @@ bool checkBlockRules(const Board &board, const std::vector<std::pair<int, int>>&
     return true; // Для блоків без букв немає обмежень
 }
 
-// Обновляем функцию проверки всех блоков
+// Оновлюємо функцію перевірки всіх блоків
 bool checkAllBlocksSymmetry(const Board &board) {
     for (const auto& block : BLOCKS) {
         if (!checkBlockRules(board, block)) {
