@@ -1,7 +1,6 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: board.cpp
  * Title: Board Class Implementation
- * Written: 2023-12-14
  * Description: Implements the game board functionality for a puzzle solver,
  *             including cell management, rule checking and block operations
  ------------------------------------------------------------------</Header>-*/

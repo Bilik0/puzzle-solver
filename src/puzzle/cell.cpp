@@ -1,7 +1,6 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: cell.cpp
  * Title: Cell Class Implementation
- * Written: 2023-12-14
  * Description: Implements the functionality for individual board cells,
  *             managing their state and properties
  ------------------------------------------------------------------</Header>-*/

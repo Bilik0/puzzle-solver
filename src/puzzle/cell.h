@@ -1,7 +1,6 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: cell.h
  * Title: Cell Class Definition
- * Written: 2023-12-14
  * Description: Defines a single cell on the game board with properties for
  *             state management including filling, block assignment, and symmetry
  ------------------------------------------------------------------</Header>-*/
