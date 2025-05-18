@@ -1,8 +1,7 @@
 /* ----------------------------------------------------------------<Header>-
  * Name: main.cpp
  * Title: Puzzle Solver with A and S letters
- * Group: TI-81
- * Written: 2023-12-14
+ * Group: TV-41
  * Description: Program solves a 10x10 board puzzle where you need to
  * place filled cells according to the following rules:
  * - Cells with letter A must be filled
