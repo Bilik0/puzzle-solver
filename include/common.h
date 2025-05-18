@@ -16,7 +16,7 @@
 #include <string>
 #include <iostream>
 
-// Константы для головоломки
+// Константи для головоломки
 const int BOARD_SIZE = 10;
 
 #endif // COMMON_H

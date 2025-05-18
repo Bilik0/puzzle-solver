@@ -556,13 +556,13 @@ bool checkAllBlocksSymmetry(const Board &board) {
     return true;
 }
 
-// Модифицируем solveWithCellsImproved для проверки симметрии
+// Модифікуємо solveWithCellsImproved для перевірки симетрії
 bool solveWithCellsImproved(Board &board, const std::vector<std::pair<int, int>>& cells, int index) {
     if (!checkNoAdjacentFilled(board) || !checkEmptyCellsContinuity(board)) {
         return false;
     }
 
-    // Быстрая проверка текущего блока
+    // Швидка перевірка поточного блоку
     if (index > 0) {
         for (const auto& block : BLOCKS) {
             if (std::find(block.begin(), block.end(), cells[index-1]) != block.end()) {
@@ -582,13 +582,13 @@ bool solveWithCellsImproved(Board &board, const std::vector<std::pair<int, int>>
     int x = cells[index].first;
     int y = cells[index].second;
 
-    // Пробуем сначала НЕ закрашивать
+    // Спробуємо спочатку НЕ зафарбовувати
     board.setCell(x, y, false);
     if (solveWithCellsImproved(board, cells, index + 1)) {
         return true;
     }
 
-    // Проверяем возможность закрасить
+    // Перевіряємо можливість зафарбувати
     for (int d = 0; d < 4; d++) {
         int nx = x + (d == 0 ? -1 : d == 1 ? 1 : 0);
         int ny = y + (d == 2 ? -1 : d == 3 ? 1 : 0);
@@ -608,7 +608,7 @@ bool solveWithCellsImproved(Board &board, const std::vector<std::pair<int, int>>
     return false;
 }
 
-// Все константы и структуры для букв
+// Всі константи та структури для літер
 const std::vector<std::pair<int, int>> LETTER_A_POSITIONS = {
     {3, 1}, {4, 2}, {9, 1}, {7, 3}, {8, 3}, {1, 6}, {5, 7}, {0, 8}
 };
@@ -617,7 +617,7 @@ const std::vector<std::pair<int, int>> LETTER_S_POSITIONS = {
     {0, 5}, {9, 4}, {2, 6}, {6, 8}
 };
 
-// Упрощенная функция установки букв
+// Спрощена функція встановлення літер
 void setupLetters(Board &board) {
     for (auto& pos : LETTER_A_POSITIONS) {
         board.setCellNumber(pos.first, pos.second, 'A');
@@ -628,7 +628,7 @@ void setupLetters(Board &board) {
     }
 }
 
-// Упрощенная функция проверки букв
+// Спрощена функція перевірки літер
 bool verifyLetters(const Board &board) {
     for (auto& pos : LETTER_A_POSITIONS) {
         if (board.getCellNumber(pos.first, pos.second) != 'A') return false;
@@ -659,18 +659,18 @@ int main() {
     setPuzzle(board);
     
     if (!verifyLetters(board)) {
-        std::cout << "Переустановка букв..." << std::endl;
+        std::cout << "Перевстановлення літер..." << std::endl;
         setupLetters(board);
     }
     
-    std::cout << "Решаем головоломку..." << std::endl;
+    std::cout << "Розв'язуємо головоломку..." << std::endl;
     
     if (solveOptimizedBacktracking(board)) {
-        std::cout << "Решение найдено!" << std::endl;
+        std::cout << "Рішення знайдено!" << std::endl;
         printBoard(board);
     } else {
-        std::cout << "Решения не существует!" << std::endl;
-        std::cout << "Состояние доски в конце алгоритма:" << std::endl;
+        std::cout << "Рішення не існує!" << std::endl;
+        std::cout << "Стан дошки в кінці алгоритму:" << std::endl;
         printBoard(board);
     }
     

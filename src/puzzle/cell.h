@@ -18,20 +18,20 @@ public:
     void setFilled(bool value);
     bool isFilled() const;
     
-    // Для числовых клеток и блоков
+    // Для числових клітинок та блоків
     void setBlockId(int id);
     int getBlockId() const;
     
-    void setValue(int value);   // Для клеток с числами (A или S)
+    void setValue(int value);   // Для клітинок з літерами (A або S)
     int getValue() const;
     
     void setHasNumber(bool has);
     bool hasNumber() const;
     
-    void setIsSymmetry(bool sym); // Для блоков с S
+    void setIsSymmetry(bool sym); // Для блоків з S
     bool isSymmetry() const;
     
-    void setIsAsymmetry(bool asym); // Для блоков с A
+    void setIsAsymmetry(bool asym); // Для блоків з A
     bool isAsymmetry() const;
 
 private:

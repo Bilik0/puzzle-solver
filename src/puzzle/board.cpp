@@ -92,7 +92,7 @@ void Board::setCellNumber(int x, int y, char type, int value) {
         cells[y][x].setHasNumber(true);
         cells[y][x].setValue(value);
         
-        // Устанавливаем тип блока (S - симметричный, A - асимметричный)
+        // Встановлюємо тип блоку (S - симетричний, A - асиметричний)
         if (type == 'S') {
             cells[y][x].setIsSymmetry(true);
         } else if (type == 'A') {
@@ -198,10 +198,10 @@ bool Board::isBlockAsymmetric(int blockId) const {
  * Returns: True if the rule is satisfied, false otherwise
  ---------------------------------------------------------------------[>]-*/
 bool Board::checkContinuityRule() const {
-    // Проверка целостности незакрашенных клеток с помощью BFS
+    // Перевірка цілісності незафарбованих клітинок за допомогою BFS
     std::vector<std::vector<bool>> visited(height, std::vector<bool>(width, false));
     
-    // Найдем первую незакрашенную клетку
+    // Знаходимо першу незафарбовану клітинку
     int startX = -1, startY = -1;
     for (int y = 0; y < height && startX == -1; ++y) {
         for (int x = 0; x < width; ++x) {
