@@ -5,14 +5,11 @@ OBJ_DIR = obj
 BIN_DIR = bin
 TARGET = $(BIN_DIR)/puzzle_solver
 
-# Рекурсивный поиск всех .cpp файлов в директории src и поддиректориях
 SRCS := $(shell find $(SRC_DIR) -name '*.cpp')
-# Создание списка объектных файлов из исходников
 OBJS := $(SRCS:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 all: directories $(TARGET)
-
-# Создание всех необходимых директорий
+	@echo "Build complete. Executable is located at $(TARGET)"
 directories:
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(dir $(OBJS))
